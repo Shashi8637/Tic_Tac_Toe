@@ -40,6 +40,7 @@ class _HomeState extends State<Home> {
     '-',
   ];
   var winner = "";
+  var draw = false;
   var currentplyer ='x';
   void drawxo(i){
     if(grid[i]=='-') {
@@ -63,10 +64,14 @@ class _HomeState extends State<Home> {
     checkMove(0,1,2,currentsign)|| checkMove(3,4,5,currentsign) || checkMove(6,7,8,currentsign) ||
         checkMove(0,3,6,currentsign)|| checkMove(1,4,7,currentsign) || checkMove(2,5,8,currentsign) ||
         checkMove(0,4,8,currentsign)|| checkMove(2,4,6,currentsign)
-    ){
-      setState((){
+    ) {
+      setState(() {
         winner = currentsign;
-
+        draw = false;
+      });
+    }else if (grid.indexOf('-') == -1) {
+      setState((){
+        draw = true;
       });
 
     }
@@ -113,12 +118,24 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              if(winner!="") Text("$winner won the game",
+              if(winner!="")
+                Text("$winner won the game",
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.orange,
                 ),
               ),
+           if (draw)
+              Text("Draw game!",
+               style: TextStyle(
+                 fontSize: 30,
+               color: Colors.orange,
+               ),
+                 ),
+
+
+
+
               Container(
                 constraints: BoxConstraints(maxHeight: 400, maxWidth: 400,),
                 margin: EdgeInsets.all(20),
